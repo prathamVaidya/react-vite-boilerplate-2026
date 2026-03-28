@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./app.css";
 
 function App() {
-  const [state, setState] = useState(0); // ❌ Hook in condition
+  const [state, setState] = useState(0);
   setState(state + 1);
   console.log(state);
 
