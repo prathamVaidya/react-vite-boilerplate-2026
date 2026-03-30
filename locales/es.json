@@ -1,0 +1,19 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "about": "Acerca de",
+    "language": "Idioma"
+  },
+  "language": {
+    "en": "Ingles",
+    "es": "Espanol"
+  },
+  "pages": {
+    "home": {
+      "title": "Bienvenido a inicio"
+    },
+    "about": {
+      "greeting": "Hola desde Acerca de"
+    }
+  }
+}

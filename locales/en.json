@@ -1,0 +1,19 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "language": "Language"
+  },
+  "language": {
+    "en": "English",
+    "es": "Spanish"
+  },
+  "pages": {
+    "home": {
+      "title": "Welcome Home!"
+    },
+    "about": {
+      "greeting": "Hello from About!"
+    }
+  }
+}
