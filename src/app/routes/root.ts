@@ -1,7 +1,7 @@
 import { createRouter, createRoute, createRootRoute } from "@tanstack/react-router";
-import { AboutPage } from "../pages/about";
-import { IndexPage } from "../pages";
-import { RootLayout } from "../layouts/root";
+import { AboutPage } from "../../pages/about";
+import { IndexPage } from "../../pages";
+import { RootLayout } from "../../shared/layouts/root";
 
 const rootRoute = createRootRoute({
   component: RootLayout,

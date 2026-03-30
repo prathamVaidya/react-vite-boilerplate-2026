@@ -1,6 +1,6 @@
 import { Link, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
-import "../styles/index.css";
+import "./app.css";
 
 export function RootLayout() {
   return (
