@@ -1,7 +1,6 @@
 import { StrictMode } from "react";
-import { RouterProvider } from "@tanstack/react-router";
 import { createRoot } from "react-dom/client";
-import { router } from "./routes/root";
+import { AppProvider } from "./app/providers/app";
 
 const rootElement = document.getElementById("root");
 if (!rootElement) {
@@ -11,6 +10,6 @@ if (!rootElement) {
 const root = createRoot(rootElement);
 root.render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AppProvider />
   </StrictMode>,
 );
