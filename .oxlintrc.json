@@ -32,6 +32,18 @@
             "group": ["**/src"],
             "message": "Don't import from src",
             "allowTypeImports": false
+          },
+          {
+            "group": ["@features/*/*", "@features/*/*/*", "@features/*/*/*/*"],
+            "message": "No deep imports into feature slices. Use the public API: import from '@features/<slice>'"
+          },
+          {
+            "group": ["@entities/*/*", "@entities/*/*/*", "@entities/*/*/*/*"],
+            "message": "No deep imports into entity slices. Use the public API: import from '@entities/<slice>'"
+          },
+          {
+            "group": ["@widgets/*/*", "@widgets/*/*/*", "@widgets/*/*/*/*"],
+            "message": "No deep imports into widget slices. Use the public API: import from '@widgets/<slice>'"
           }
         ]
       }
@@ -191,7 +203,16 @@
     "import/no-webpack-loader-syntax": "error",
     "import/no-duplicates": "error",
     "import/no-import-assign": "error",
-    "import/no-self-import": "error"
+    "import/no-self-import": "error",
+    "import/first": "error",
+    "import/no-mutable-exports": "error",
+    "import/no-named-default": "error",
+    "import/no-unassigned-import": [
+      "error",
+      {
+        "allow": ["**/*.css", "**/*.scss", "**/i18n/**"]
+      }
+    ]
   },
   "settings": {
     "jsx-a11y": {
@@ -226,5 +247,252 @@
     "builtin": true
   },
   "globals": {},
-  "ignorePatterns": []
+  "ignorePatterns": [],
+
+  // ── FSD Layer Boundary Enforcement ──
+  // Each override restricts imports from layers ABOVE the current one.
+  // Layer hierarchy: app → processes → pages → widgets → features → entities → shared
+  // Overrides replace the base no-restricted-imports rule, so global patterns are re-included.
+  "overrides": [
+    // shared: bottom layer — cannot import from any other FSD layer
+    {
+      "files": ["src/shared/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["**/dist"],
+                "message": "Don't import from dist",
+                "allowTypeImports": false
+              },
+              {
+                "group": ["**/src"],
+                "message": "Don't import from src",
+                "allowTypeImports": false
+              },
+              {
+                "group": ["@features/*/*", "@features/*/*/*", "@features/*/*/*/*"],
+                "message": "No deep imports into feature slices. Use the public API: import from '@features/<slice>'"
+              },
+              {
+                "group": ["@entities/*/*", "@entities/*/*/*", "@entities/*/*/*/*"],
+                "message": "No deep imports into entity slices. Use the public API: import from '@entities/<slice>'"
+              },
+              {
+                "group": ["@widgets/*/*", "@widgets/*/*/*", "@widgets/*/*/*/*"],
+                "message": "No deep imports into widget slices. Use the public API: import from '@widgets/<slice>'"
+              },
+              {
+                "group": ["@app/*", "@app/**"],
+                "message": "shared layer must not import from app"
+              },
+              {
+                "group": ["@pages/*", "@pages/**"],
+                "message": "shared layer must not import from pages"
+              },
+              {
+                "group": ["@widgets/*", "@widgets/**"],
+                "message": "shared layer must not import from widgets"
+              },
+              {
+                "group": ["@features/*", "@features/**"],
+                "message": "shared layer must not import from features"
+              },
+              {
+                "group": ["@entities/*", "@entities/**"],
+                "message": "shared layer must not import from entities"
+              }
+            ]
+          }
+        ]
+      }
+    },
+
+    // entities: can only import from shared
+    {
+      "files": ["src/entities/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["**/dist"],
+                "message": "Don't import from dist",
+                "allowTypeImports": false
+              },
+              {
+                "group": ["**/src"],
+                "message": "Don't import from src",
+                "allowTypeImports": false
+              },
+              {
+                "group": ["@features/*/*", "@features/*/*/*", "@features/*/*/*/*"],
+                "message": "No deep imports into feature slices. Use the public API: import from '@features/<slice>'"
+              },
+              {
+                "group": ["@entities/*/*", "@entities/*/*/*", "@entities/*/*/*/*"],
+                "message": "No deep imports into entity slices. Use the public API: import from '@entities/<slice>'"
+              },
+              {
+                "group": ["@widgets/*/*", "@widgets/*/*/*", "@widgets/*/*/*/*"],
+                "message": "No deep imports into widget slices. Use the public API: import from '@widgets/<slice>'"
+              },
+              {
+                "group": ["@app/*", "@app/**"],
+                "message": "entities layer must not import from app"
+              },
+              {
+                "group": ["@pages/*", "@pages/**"],
+                "message": "entities layer must not import from pages"
+              },
+              {
+                "group": ["@widgets/*", "@widgets/**"],
+                "message": "entities layer must not import from widgets"
+              },
+              {
+                "group": ["@features/*", "@features/**"],
+                "message": "entities layer must not import from features"
+              }
+            ]
+          }
+        ]
+      }
+    },
+
+    // features: can import from entities and shared only (+ cross-feature ban)
+    {
+      "files": ["src/features/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["**/dist"],
+                "message": "Don't import from dist",
+                "allowTypeImports": false
+              },
+              {
+                "group": ["**/src"],
+                "message": "Don't import from src",
+                "allowTypeImports": false
+              },
+              {
+                "group": ["@features/*/*", "@features/*/*/*", "@features/*/*/*/*"],
+                "message": "No deep imports into feature slices. Use the public API: import from '@features/<slice>'"
+              },
+              {
+                "group": ["@entities/*/*", "@entities/*/*/*", "@entities/*/*/*/*"],
+                "message": "No deep imports into entity slices. Use the public API: import from '@entities/<slice>'"
+              },
+              {
+                "group": ["@widgets/*/*", "@widgets/*/*/*", "@widgets/*/*/*/*"],
+                "message": "No deep imports into widget slices. Use the public API: import from '@widgets/<slice>'"
+              },
+              {
+                "group": ["@app/*", "@app/**"],
+                "message": "features layer must not import from app"
+              },
+              {
+                "group": ["@pages/*", "@pages/**"],
+                "message": "features layer must not import from pages"
+              },
+              {
+                "group": ["@widgets/*", "@widgets/**"],
+                "message": "features layer must not import from widgets"
+              },
+              {
+                "group": ["@features/*"],
+                "message": "Features must not import other features. Use relative imports for the current slice, or move shared logic to entities/shared."
+              }
+            ]
+          }
+        ]
+      }
+    },
+
+    // widgets: can import from features, entities, and shared
+    {
+      "files": ["src/widgets/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["**/dist"],
+                "message": "Don't import from dist",
+                "allowTypeImports": false
+              },
+              {
+                "group": ["**/src"],
+                "message": "Don't import from src",
+                "allowTypeImports": false
+              },
+              {
+                "group": ["@features/*/*", "@features/*/*/*", "@features/*/*/*/*"],
+                "message": "No deep imports into feature slices. Use the public API: import from '@features/<slice>'"
+              },
+              {
+                "group": ["@entities/*/*", "@entities/*/*/*", "@entities/*/*/*/*"],
+                "message": "No deep imports into entity slices. Use the public API: import from '@entities/<slice>'"
+              },
+              {
+                "group": ["@widgets/*/*", "@widgets/*/*/*", "@widgets/*/*/*/*"],
+                "message": "No deep imports into widget slices. Use the public API: import from '@widgets/<slice>'"
+              },
+              {
+                "group": ["@app/*", "@app/**"],
+                "message": "widgets layer must not import from app"
+              },
+              {
+                "group": ["@pages/*", "@pages/**"],
+                "message": "widgets layer must not import from pages"
+              }
+            ]
+          }
+        ]
+      }
+    },
+
+    // pages: can import from widgets, features, entities, and shared
+    {
+      "files": ["src/pages/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["**/dist"],
+                "message": "Don't import from dist",
+                "allowTypeImports": false
+              },
+              {
+                "group": ["**/src"],
+                "message": "Don't import from src",
+                "allowTypeImports": false
+              },
+              {
+                "group": ["@features/*/*", "@features/*/*/*", "@features/*/*/*/*"],
+                "message": "No deep imports into feature slices. Use the public API: import from '@features/<slice>'"
+              },
+              {
+                "group": ["@entities/*/*", "@entities/*/*/*", "@entities/*/*/*/*"],
+                "message": "No deep imports into entity slices. Use the public API: import from '@entities/<slice>'"
+              },
+              {
+                "group": ["@widgets/*/*", "@widgets/*/*/*", "@widgets/*/*/*/*"],
+                "message": "No deep imports into widget slices. Use the public API: import from '@widgets/<slice>'"
+              },
+              { "group": ["@app/*", "@app/**"], "message": "pages layer must not import from app" }
+            ]
+          }
+        ]
+      }
+    }
+  ]
 }
