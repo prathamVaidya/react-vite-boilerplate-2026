@@ -1,4 +1,4 @@
-import { defineConfig } from "vite";
+import { defineConfig } from "vitest/config";
 import react, { reactCompilerPreset } from "@vitejs/plugin-react";
 import babel from "@rolldown/plugin-babel";
 import { fileURLToPath, URL } from "node:url";
@@ -16,4 +16,11 @@ export default defineConfig({
     },
   },
   plugins: [react(), babel({ presets: [reactCompilerPreset()] })],
+  test: {
+    environment: "jsdom",
+    globals: true,
+    setupFiles: ["./vitest.setup.ts"],
+    include: ["src/**/__tests__/*.{test,spec}.{ts,tsx}"],
+    exclude: ["tests/e2e/**"],
+  },
 });
