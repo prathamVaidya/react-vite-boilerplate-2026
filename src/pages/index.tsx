@@ -1,5 +1,5 @@
-import { TodoList } from "../features/example-todos/ui/todo-list";
-import { ExampleForm } from "../features/form-example/ui/example-form";
+import { TodoList } from "@features/example-todos/ui/todo-list";
+import { ExampleForm } from "@features/form-example/ui/example-form";
 
 export function IndexPage() {
   return (

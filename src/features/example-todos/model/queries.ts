@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { api } from "../../../shared/api/client";
+import { api } from "@shared/api/client";
 
 export interface Todo {
   id: number;
@@ -17,4 +17,3 @@ export function useTodosQuery() {
     queryFn: fetchTodos,
   });
 }
-
