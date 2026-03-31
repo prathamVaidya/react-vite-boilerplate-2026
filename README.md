@@ -2,6 +2,8 @@
 
 A template repository for bootstrapping React SPAs with a production-ready stack and [Feature-Sliced Design](https://feature-sliced.design/) architecture.
 
+Inspired from this reddit thread: [Senior React Devs: What stack would you choose for a large-scale production app in 2026?](https://www.reddit.com/r/react/comments/1s3a0o2/senior_react_devs_what_stack_would_you_choose_for/)
+
 ## Using this template
 
 Click **"Use this template"** on GitHub to create a new repository, then:
@@ -54,7 +56,7 @@ src/
 └── shared/       # Utilities, API client, UI kit
 ```
 
-See [AGENTS.md](./AGENTS.md) for detailed architecture rules, conventions, and contributor guidelines.
+See [AGENTS.md](./AGENTS.md) for detailed architecture rules, conventions, and contributor guidelines. Don't forget to update the AGENTS.md with your own business logic to enable its full potential.
 
 ## License
 
