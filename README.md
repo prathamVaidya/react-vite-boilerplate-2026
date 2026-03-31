@@ -1,30 +1,61 @@
-# React + TypeScript + Vite
+# React Dashboard Template
 
-This project uses React + TypeScript + Vite with Oxc-based linting and formatting.
+A template repository for bootstrapping React SPAs with a production-ready stack and [Feature-Sliced Design](https://feature-sliced.design/) architecture.
 
-Currently, two official plugins are available:
+## Using this template
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
-
-Note: This will impact Vite dev & build performances.
-
-## Linting and formatting
-
-This project is configured with:
-
-- `oxlint` for linting
-- `oxfmt` for formatting
-
-Common commands:
+Click **"Use this template"** on GitHub to create a new repository, then:
 
 ```sh
-pnpm lint
-pnpm lint:fix
-pnpm format
-pnpm format:check
+git clone <your-new-repo-url>
+cd <your-new-repo>
+pnpm install
+pnpm dev
 ```
+
+## Stack
+
+| Category      | Tool                           |
+| ------------- | ------------------------------ |
+| Framework     | React 19, TypeScript, Vite     |
+| Routing       | TanStack Router                |
+| Server state  | TanStack Query                 |
+| Forms         | TanStack React Form + Zod      |
+| HTTP          | ky                             |
+| i18n          | i18next + react-i18next        |
+| Lint / Format | oxlint + oxfmt (Oxc toolchain) |
+| Unit tests    | Vitest + Testing Library       |
+| E2E tests     | Playwright                     |
+| Compiler      | React Compiler (via Babel)     |
+| Architecture  | Feature-Sliced Design          |
+
+## Scripts
+
+| Script           | Description                         |
+| ---------------- | ----------------------------------- |
+| `pnpm dev`       | Start dev server                    |
+| `pnpm build`     | Type-check and build for production |
+| `pnpm start`     | Preview production build            |
+| `pnpm lint`      | Run oxlint                          |
+| `pnpm format`    | Format with oxfmt                   |
+| `pnpm test`      | Run unit + E2E tests                |
+| `pnpm test:unit` | Run unit tests only                 |
+| `pnpm test:e2e`  | Run E2E tests only                  |
+
+## Project structure
+
+```
+src/
+├── app/          # Providers, layouts, routing, i18n config
+├── pages/        # Route-level components
+├── widgets/      # Composite UI blocks
+├── features/     # User-facing interactions
+├── entities/     # Business entities and domain models
+└── shared/       # Utilities, API client, UI kit
+```
+
+See [AGENTS.md](./AGENTS.md) for detailed architecture rules, conventions, and contributor guidelines.
+
+## License
+
+<!-- TODO: choose a license -->
