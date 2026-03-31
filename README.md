@@ -58,4 +58,4 @@ See [AGENTS.md](./AGENTS.md) for detailed architecture rules, conventions, and c
 
 ## License
 
-<!-- TODO: choose a license -->
+Licensed under the [Apache License 2.0](./LICENSE).
